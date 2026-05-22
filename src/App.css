@@ -1,0 +1,19 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+#root{
+  width: 100%;
+}
+
+.nav-item .active {
+  font-weight: bold;
+}
+
+.banner {
+  width: 100%;
+  overflow: hidden;
+}
+
+.banner img {
+  width: 100%;
+  object-fit: cover;
+}
