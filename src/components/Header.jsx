@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
+import SearchWidget from './SearchWidget';
 
 function Header() {
   return (
@@ -10,12 +11,7 @@ function Header() {
               <img src="/img/header-logo.png" alt="Bosa Noga" />
             </Link>
             
-            <button 
-              className="navbar-toggler" 
-              type="button" 
-              data-toggle="collapse" 
-              data-target="#navbarMain"
-            >
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
               <span className="navbar-toggler-icon"></span>
             </button>
             
@@ -38,15 +34,12 @@ function Header() {
             
             <div>
               <div className="header-controls-pics">
-                <div data-id="search-expander" className="header-controls-pic header-controls-search"></div>
+                <SearchWidget />
                 <div className="header-controls-pic header-controls-cart">
                   <div className="header-controls-cart-full">1</div>
                   <div className="header-controls-cart-menu"></div>
                 </div>
               </div>
-              <form data-id="search-form" className="header-controls-search-form form-inline invisible">
-                <input className="form-control" placeholder="Поиск" />
-              </form>
             </div>
           </nav>
         </div>
