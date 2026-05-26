@@ -1,23 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Banner from '../components/Banner';
 import Categories from '../components/Categories';
 import CatalogProducts from '../components/CatalogProducts';
-import { useDispatch } from 'react-redux';
-import { setSearchQuery } from '../store/slices/productsSlice';
 
 function CatalogPage() {
   const [searchParams] = useSearchParams();
-  const dispatch = useDispatch();
-  const [categoryId, setCategoryId] = useState(0);
+  const selectedCategory = useSelector((state) => state.categories.selected);
+  const [categoryId, setCategoryId] = useState(selectedCategory);
   const query = searchParams.get('q') || '';
 
   useEffect(() => {
-    dispatch(setSearchQuery(query));
-  }, [dispatch, query]);
+    setCategoryId(selectedCategory);
+  }, [selectedCategory]);
 
   return (
-    <>
+    <div className="col">
       <Banner />
       <section className="catalog">
         <h2 className="text-center">Каталог</h2>
@@ -37,7 +36,7 @@ function CatalogPage() {
         <Categories onCategoryChange={setCategoryId} />
         <CatalogProducts categoryId={categoryId} searchQuery={query} />
       </section>
-    </>
+    </div>
   );
 }
 

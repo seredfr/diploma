@@ -9,6 +9,7 @@ import AboutPage from './pages/AboutPage';
 import ContactsPage from './pages/ContactsPage';
 import CartPage from './pages/CartPage';
 import NotFoundPage from './pages/NotFoundPage';
+import ProductPage from './pages/ProductPage';
 import './App.css';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
               <Route path="/about.html" element={<AboutPage />} />
               <Route path="/contacts.html" element={<ContactsPage />} />
               <Route path="/cart.html" element={<CartPage />} />
+              <Route path="/catalog/:id.html" element={<ProductPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>

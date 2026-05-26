@@ -18,6 +18,10 @@
   object-fit: cover;
 }
 
+.banner-header{
+  right: 12px !important;
+}
+
 .catalog-categories .nav-link {
   color: #727e86 !important;
   background-color: transparent;

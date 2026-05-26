@@ -1,5 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
 import SearchWidget from './SearchWidget';
+import CartWidget from './CartWidget';
 
 function Header() {
   return (
@@ -35,10 +36,7 @@ function Header() {
             <div>
               <div className="header-controls-pics">
                 <SearchWidget />
-                <div className="header-controls-pic header-controls-cart">
-                  <div className="header-controls-cart-full">1</div>
-                  <div className="header-controls-cart-menu"></div>
-                </div>
+                <CartWidget />
               </div>
             </div>
           </nav>

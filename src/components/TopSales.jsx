@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTopSales } from '../store/slices/topSalesSlice';
 import ProductCard from './ProductCard';
+import ErrorWithRetry from './ErrorWithRetry';
 
 function TopSales() {
   const dispatch = useDispatch();
-  const { items, status } = useSelector((state) => state.topSales);
+  const { items, status, error } = useSelector((state) => state.topSales);
 
   useEffect(() => {
     dispatch(fetchTopSales());
@@ -15,9 +16,20 @@ function TopSales() {
     return (
       <section className="top-sales">
         <h2 className="text-center">Хиты продаж!</h2>
-        <div className="preloader">
-          <span></span><span></span><span></span><span></span>
-        </div>
+        <div className="preloader"><span></span><span></span><span></span><span></span></div>
+      </section>
+    );
+  }
+
+  if (status === 'failed') {
+    return (
+      <section className="top-sales">
+        <h2 className="text-center">Хиты продаж!</h2>
+        <ErrorWithRetry 
+          message={error} 
+          onRetry={() => dispatch(fetchTopSales())}
+          isLoading={status === 'loading'}
+        />
       </section>
     );
   }

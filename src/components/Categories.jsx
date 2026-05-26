@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories, setSelectedCategory } from '../store/slices/categoriesSlice';
+import ErrorWithRetry from './ErrorWithRetry';
 
 function Categories({ onCategoryChange }) {
   const dispatch = useDispatch();
-  const { items, selected, status } = useSelector((state) => state.categories);
+  const { items, selected, status, error } = useSelector((state) => state.categories);
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -16,7 +17,14 @@ function Categories({ onCategoryChange }) {
   };
 
   if (status === 'loading') {
-    return <div className="preloader"><span></span><span></span><span></span><span></span></div>;
+    return <div className="text-center text-muted">Загрузка категорий...</div>;
+  }
+
+  if (status === 'failed') {
+    return <ErrorWithRetry 
+      message={error} 
+      onRetry={() => dispatch(fetchCategories())}
+    />;
   }
 
   return (

@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts, clearProducts } from '../store/slices/productsSlice';
 import ProductCard from './ProductCard';
+import ErrorWithRetry from './ErrorWithRetry';
 
 function CatalogProducts({ categoryId, searchQuery }) {
   const dispatch = useDispatch();
-  const { items, status, hasMore, offset } = useSelector((state) => state.products);
+  const { items, status, error, hasMore, offset } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(clearProducts());
@@ -18,6 +19,15 @@ function CatalogProducts({ categoryId, searchQuery }) {
 
   if (status === 'loading' && items.length === 0) {
     return <div className="preloader"><span></span><span></span><span></span><span></span></div>;
+  }
+
+  if (status === 'failed' && items.length === 0) {
+    return (
+      <ErrorWithRetry 
+        message={error} 
+        onRetry={() => dispatch(fetchProducts({ categoryId, offset: 0, q: searchQuery }))}
+      />
+    );
   }
 
   if (items.length === 0 && status === 'succeeded') {
